@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block pagecontent %}
+    <p>
+        There are {{ numBalls }} balls in the urn.
+        {{ numDraws }} persons have drawn a ball.
+    </p>
+    <p>
+        The urn is {% if not urn.locked %}un{% endif %}locked.
+    </p>
+    {% if showUrn %}
+        <table class="u-full-width">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Colour</th>
+                    <th>Pr[B]</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>{{ " ".join(balls) }}</td>
+                    <td>0.5</td>
+                </tr>
+                {% for i,ball,pB in history %}
+                    <tr>
+                        <td>{{ i }}</td>
+                        <td>{{ ball }}</td>
+                        <td>{{ pB }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <p>
+        <a class="button" href="{{ url_for("removeBall", showUrn = showUrn) }}">Remove ball</a>
+        {% if showUrn %}
+            <a class="button" href="{{ url_for("admin", showUrn = 1-showUrn) }}">Hide urn</a>
+        {% else %}
+            <a class="button" href="{{ url_for("admin", showUrn = 1-showUrn) }}">Show urn</a>
+        {% endif %}
+        <a class="button" href="{{ url_for("toggleUrn", showUrn = showUrn) }}">Toggle urn</a>
+        <a class="button" href="{{ url_for("resetUrn", showUrn = showUrn) }}">Reset urn</a>
+    </p>
+{% endblock %}

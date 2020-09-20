@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block pagecontent %}
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.password.label }}
+            {{ form.password(size=32) }}
+            {{ form.submit() }}
+        </p>
+    </form>
+{% endblock %}
